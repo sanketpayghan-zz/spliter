@@ -7,7 +7,7 @@ from django.db import models
 
 class Expense(models.Model):
 	class Meta:
-		app_label = 'Split'
+		app_label = 'split'
 
 	name = models.CharField(max_length=255)
 	amount = models.DecimalField(max_digits=10, decimal_places=2)
@@ -17,7 +17,7 @@ class Expense(models.Model):
 
 class SplitExpense(models.Model):
 	class Meta:
-		app_label = 'Split'
+		app_label = 'split'
 	user = models.CharField(max_length=255, db_index=True)
 	paid = models.DecimalField(max_digits=10, decimal_places=2)
 	owes = models.DecimalField(max_digits=10, decimal_places=2)
