@@ -61,7 +61,7 @@ class ExpenseView(View):
 	def get(self, request):
 		try:
 			group = request.GET['group']
-			result = SplitExpense.objects.filter(txn__group_id=group).values('user').annotate(paid_sum=Sum('paid') - Sum('owes')).order_by('paid_sum')
+			result = SplitExpense.objects.filter(txn__group=group).values('user').annotate(paid_sum=Sum('paid') - Sum('owes')).order_by('paid_sum')
 			simplified = []
 			i, j = 0, len(result) - 1
 			while i < j:
