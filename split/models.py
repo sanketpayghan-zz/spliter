@@ -14,6 +14,7 @@ class Expense(models.Model):
 	created_by = models.CharField(max_length=255)
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
+	group = models.CharField(max_length=255)
 
 class SplitExpense(models.Model):
 	class Meta:
