@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                 ('user', models.CharField(db_index=True, max_length=255)),
                 ('paid', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('owes', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('txn', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Split.Expense')),
+                ('txn', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='split.Expense')),
             ],
         ),
     ]
