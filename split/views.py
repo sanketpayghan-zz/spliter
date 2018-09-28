@@ -44,7 +44,7 @@ class ExpenseView(View):
 			return HttpResponseBadRequest(json.dumps(self.response), content_type='application/json')
 		with transaction.atomic():
 			expense = Expense.objects.create(name=data.get('name'),
-				amount = data.get('amount'), created_by = data.get('created_by'))
+				amount = data.get('amount'), created_by = data.get('created_by'), group=data['group'])
 			for user, amount in paid.iteritems():
 				splits.append(SplitExpense(user=user,paid=amount,owes=owes.get(user, 0), txn=expense))
 				if user in owes:
