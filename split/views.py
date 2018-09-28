@@ -55,7 +55,8 @@ class ExpenseView(View):
 		return HttpResponse(json.dumps(self.response), content_type='application/json')
 
 	def get(self, request):
-		result = SplitExpense.objects.values('user').annotate(paid_sum=Sum('paid') - Sum('owes')).order_by('paid_sum')
+		group = request.GET.get('group')
+		result = SplitExpense.objects.fiilter(group=group).values('user').annotate(paid_sum=Sum('paid') - Sum('owes')).order_by('paid_sum')
 		simplified = []
 		i, j = 0, len(result) - 1
 		while i < j:
