@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name='expense',
+            model_name='Split_expense',
             name='group',
             field=models.CharField(default='12423rwdfgsd1324r', max_length=255),
             preserve_default=False,
