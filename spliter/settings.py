@@ -26,7 +26,7 @@ SECRET_KEY = '8llmlmb39c88(5u*1bzo%ui=ja=m=y5qu$%y2m0nud^zat()$$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['wicked-ride-spliter.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
