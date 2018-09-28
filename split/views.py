@@ -59,27 +59,31 @@ class ExpenseView(View):
 			return HttpResponseBadRequest(json.dumps(self.response), content_type='application/json')
 
 	def get(self, request):
-		group = request.GET.get('group')
-		result = SplitExpense.objects.fiilter(txn__group_id=group).values('user').annotate(paid_sum=Sum('paid') - Sum('owes')).order_by('paid_sum')
-		simplified = []
-		i, j = 0, len(result) - 1
-		while i < j:
-			transaction = {}
-			transaction['from'] = result[i]['user']
-			transaction['to'] = result[j]['user']
-			if abs(result[i]['paid_sum']) >= abs(result[j]['paid_sum']):
-				transaction['amount'] = abs(result[j]['paid_sum'])
-				result[i]['paid_sum'] = result[i]['paid_sum'] + result[j]['paid_sum']
-				j = j - 1
-			else:
-				transaction['amount'] = abs(result[i]['paid_sum'])
-				result[j]['paid_sum'] = result[i]['paid_sum'] + result[j]['paid_sum']
-				i = i + 1
-			if transaction['amount'] > 0:
-				simplified.append(transaction)
-		self.response = {'message': 'Simplified expenses.'}
-		self.response['simplified'] = simplified
-		return HttpResponse(json.dumps(self.response, default=decimal_default), content_type='application/json')
+		try:
+			group = request.GET.get('group')
+			result = SplitExpense.objects.fiilter(txn__group_id=group).values('user').annotate(paid_sum=Sum('paid') - Sum('owes')).order_by('paid_sum')
+			simplified = []
+			i, j = 0, len(result) - 1
+			while i < j:
+				transaction = {}
+				transaction['from'] = result[i]['user']
+				transaction['to'] = result[j]['user']
+				if abs(result[i]['paid_sum']) >= abs(result[j]['paid_sum']):
+					transaction['amount'] = abs(result[j]['paid_sum'])
+					result[i]['paid_sum'] = result[i]['paid_sum'] + result[j]['paid_sum']
+					j = j - 1
+				else:
+					transaction['amount'] = abs(result[i]['paid_sum'])
+					result[j]['paid_sum'] = result[i]['paid_sum'] + result[j]['paid_sum']
+					i = i + 1
+				if transaction['amount'] > 0:
+					simplified.append(transaction)
+			self.response = {'message': 'Simplified expenses.'}
+			self.response['simplified'] = simplified
+			return HttpResponse(json.dumps(self.response, default=decimal_default), content_type='application/json')
+		except KeyError as e:
+			self.response['message'] = 'Mandatory input parameter missing.'
+			return HttpResponseBadRequest(json.dumps(self.response), content_type='application/json')
 
 
 
