@@ -37,15 +37,15 @@ class ExpenseView(View):
 				total_paid = total_paid + Decimal(amount)
 			for user, amount in owes.iteritems():
 				total_owes = total_owes + Decimal(amount)
-			if Decimal(total_paid) != Decimal(data.get('amount')):
+			if Decimal(total_paid) != Decimal(data['amount']):
 				self.response['message'] = "total amount paid does not match with transaction amount."
 				return HttpResponseBadRequest(json.dumps(self.response), content_type='application/json')
-			if total_owes != Decimal(data.get('amount')):
+			if total_owes != Decimal(data['amount']):
 				self.response['message'] = "total owned amount does not match with transaction amount."
 				return HttpResponseBadRequest(json.dumps(self.response), content_type='application/json')
 			with transaction.atomic():
-				expense = Expense.objects.create(name=data.get('name'),
-					amount = data.get('amount'), created_by = data.get('created_by'), group=data['group'])
+				expense = Expense.objects.create(name=data['name'],
+					amount = data['amount'], created_by = data.get('created_by'), group=data['group'])
 				for user, amount in paid.iteritems():
 					splits.append(SplitExpense(user=user,paid=amount,owes=owes.get(user, 0), txn=expense))
 					if user in owes:
