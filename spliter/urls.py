@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from Split.views import ExpenseView
+from split.views import ExpenseView
 from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [

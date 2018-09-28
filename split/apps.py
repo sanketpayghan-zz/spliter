@@ -5,4 +5,4 @@ from django.apps import AppConfig
 
 
 class SplitConfig(AppConfig):
-    name = 'Split'
+    name = 'split'
