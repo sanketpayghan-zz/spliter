@@ -54,7 +54,7 @@ class ExpenseView(View):
 					splits.append(SplitExpense(user=user,paid=0,owes=amount, txn=expense))
 				SplitExpense.objects.bulk_create(splits)
 			return HttpResponse(json.dumps(self.response), content_type='application/json')
-		except MultiValueDictKeyError as e:
+		except KeyError as e:
 			self.response['message'] = 'Mandatory input parameter missing.'
 			return HttpResponseBadRequest(json.dumps(self.response), content_type='application/json')
 
