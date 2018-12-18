@@ -6,8 +6,7 @@ from .models import Expense
 # Create your tests here.
 
 class ExpenseTestCase(TestCase):
-    def setup(self):
-        pass
+    def setUp(self):
         expense = Expense.objects.create(name='Expense Test', amount=27.08, created_by='sanket')
 
     def test_check(self):
