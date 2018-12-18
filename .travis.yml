@@ -1,2 +1,5 @@
 language: python
 script: ./manage.py test
+branches:
+	only:
+		- test
