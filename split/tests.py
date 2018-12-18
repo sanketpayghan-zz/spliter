@@ -8,6 +8,8 @@ from .models import Expense
 class ExpenseTestCase(TestCase):
     def setup(self):
         pass
+        expense = Expense.objects.create(name='Expense Test', amount=27.08, created_by='sanket')
 
     def test_check(self):
-        self.assertEqual('Same', 'Same')
+        expense = Expense.objects.last()
+        self.assertEqual(expense.name, 'Expense Test')
