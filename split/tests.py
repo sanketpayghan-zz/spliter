@@ -11,5 +11,5 @@ class ExpenseTestCase(TestCase):
         expense = Expense.objects.create(name='Expense Test', amount=27.08, created_by='sanket')
 
     def test_check(self):
-        expense = Expense.objects.last()
+        expense = Expense.objects.get(name='Expense Test')
         self.assertEqual(expense.name, 'Expense Test')
